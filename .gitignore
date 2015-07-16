@@ -9,6 +9,13 @@
 # comment the following line if you want to have your project file included.
 eagle.epf
 
+#Atmel Studio
+
+Debug/
+Visual Micro/
+*.atsln
+*.cppproj
+
 #################
 ## Eclipse
 #################
