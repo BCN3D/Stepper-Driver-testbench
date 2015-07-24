@@ -19,6 +19,7 @@ them out with a turning motor.
 #define SENSORMOTOR 2
 #define SENDPIN 4
 
+#define LED 13
 #define STEP 8
 #define DIR 9
 #define EN 10
@@ -42,6 +43,7 @@ void setup()
 	pinMode(STEP, OUTPUT);
 	pinMode(DIR, OUTPUT);
 	pinMode(EN, OUTPUT);
+	pinMode(LED, OUTPUT);
 	
 	Serial.begin(115200);
 	Serial.println("Starting the Stepper Driver test bench...");
@@ -67,6 +69,7 @@ void CSMotor() {
 		if (csSum1 >= THRESHOLD) //c: This value is the threshold, a High value means it takes longer to trigger
 		{
 			moveMotor();
+			turnLed();
 			Serial.print("Trigger Motor Test Button: ");
 			Serial.println(csSum1);
 			if (csSum1 > 0) { csSum1 = 0; } //Reset
@@ -85,6 +88,7 @@ void CSPower() {
 		if (csSum2 >= THRESHOLD) //c: This value is the threshold, a High value means it takes longer to trigger
 		{
 			conmute24V();
+			turnLed();
 			Serial.print("Trigger Power Button: ");
 			Serial.println(csSum2);
 			if (csSum2 > 0) { csSum2 = 0; } //Reset
@@ -113,4 +117,10 @@ void conmute24V() {
 	}
 	
 	powerState = !powerState; 
+}
+
+void turnLed() {
+	digitalWrite(LED, HIGH);
+	delay(5);
+	digitalWrite(LED, LOW);
 }
